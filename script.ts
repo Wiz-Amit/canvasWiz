@@ -8,11 +8,73 @@ let mouse = {
 function init() {
   c = CanvasUtils.init();
   let circle = new Circle(c);
-  circle.draw();
+  let rect = new Rect(c);
 
   CanvasUtils.animate(c, () => {
     circle.update();
+    rect.update();
   });
+}
+
+class Rect {
+  sides = {
+    top: null,
+    bottom: null,
+    left: null,
+    right: null
+  };
+
+  constructor(
+    private ctx: CanvasRenderingContext2D,
+    private options = {
+      detectWalls: true
+    },
+    private loc = CanvasUtils.getRandomLocation(c),
+    private w = randomInt(10, 50),
+    private h = randomInt(10, 50),
+    private dx = randomInt(1, 5),
+    private dy = randomInt(1, 5),
+    private g = 0.95
+  ) {
+    this.draw();
+  }
+
+  update() {
+    this.sides = {
+      top: this.loc.y,
+      bottom: this.loc.y + this.h,
+      left: this.loc.x,
+      right: this.loc.x + this.w
+    };
+
+    // handle collisions
+    this.detectWalls();
+
+    // update
+    this.loc.x += this.dx;
+    this.loc.y += this.dy;
+
+    this.draw();
+  }
+
+  draw() {
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "lime";
+    this.ctx.rect(this.loc.x, this.loc.y, this.w, this.h);
+    this.ctx.fill();
+  }
+
+  detectWalls() {
+    if (this.options.detectWalls) {
+      // sides
+      if (this.sides.right > this.ctx.canvas.width || this.sides.left < 0)
+        this.dx *= -1;
+
+      // top and bottom
+      if (this.sides.bottom > this.ctx.canvas.height || this.sides.top < 0)
+        this.dy *= -1;
+    }
+  }
 }
 
 class Circle {
@@ -25,13 +87,14 @@ class Circle {
 
   constructor(
     private ctx: CanvasRenderingContext2D,
-    private loc = CanvasUtils.getRandomLocation(c),
-    private r = randomInt(10, 50),
-    private dx = 1,
-    private dy = 1,
     private options = {
       detectWalls: true
-    }
+    },
+    private loc = CanvasUtils.getRandomLocation(c),
+    private r = randomInt(10, 50),
+    private dx = randomInt(1, 5),
+    private dy = randomInt(1, 5),
+    private g = 0.95
   ) {
     this.draw();
   }
