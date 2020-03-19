@@ -94,7 +94,7 @@ class CanvasUtils extends CanvasRenderingContext2D {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
 
-      // console.log(mouse);
+      console.log(mouse);
     });
 
     window.addEventListener("mouseover", () => {
