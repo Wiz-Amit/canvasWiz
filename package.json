@@ -1,0 +1,17 @@
+{
+  "name": "spaceBall",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "watch": "tsc script.ts --watch | parcel index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3"
+  }
+}
