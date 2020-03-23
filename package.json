@@ -1,10 +1,10 @@
 {
-  "name": "spaceBall",
+  "name": "canvasWiz",
   "version": "1.0.0",
   "description": "",
   "main": "script.js",
   "scripts": {
-    "watch": "tsc script.ts --watch | parcel index.html"
+    "watch": "tsc --watch | parcel index.html"
   },
   "keywords": [],
   "author": "",
